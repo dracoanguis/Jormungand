@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { ForceReply, InlineKeyboardMarkup, InputFile, Message, MessageEntity, MessageId, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, User, WebhookInfo } from './tel_types';
+import { ForceReply, InlineKeyboardMarkup, InputFile, InputMedia, Message, MessageEntity, MessageId, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, User, WebhookInfo } from './tel_types';
 
 
 const api_link: string = 'https://api.telegram.org/';
@@ -126,6 +126,102 @@ export class Bot {
         }
     ): Promise<Message> {
         const r = await this.post('sendDocument',demand);
+        return r.result as Message;
+    }
+
+    async sendVideo(
+        demand:{
+            chat_id:string|number,
+            video:InputFile|string,
+            duration?:number,
+            width?:number,
+            height?:number,
+            thumb?:InputFile|string,
+            caption?:string,
+            parse_mode?:string,
+            caption_entities?:MessageEntity[],
+            supports_streaming?:boolean,
+            disable_notification?:boolean,
+            protect_content?:boolean,
+            reply_to_message_id?:number,
+            allow_sending_without_reply?:boolean,
+            reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
+        }
+    ): Promise<Message> {
+        const r = await this.post('sendVideo',demand);
+        return r.result as Message;
+    }
+
+    async sendAnimation(
+        demand: {
+            chat_id:string|number,
+            animation:InputFile|string,
+            duration?:number,
+            width?:number,
+            height?:number,
+            thumb?:InputFile|string,
+            caption?:string,
+            parse_mode?:string,
+            caption_entities?:MessageEntity[],
+            disable_notification?:boolean,
+            protect_content?:boolean,
+            reply_to_message_id?:number,
+            allow_sending_without_reply?:boolean,
+            reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply          
+        }
+    ): Promise<Message> {
+        const r = await this.post('sendAnimation',demand);
+        return r.result as Message;
+    }
+
+    async sendVoice(
+        demand: {
+            chat_id:string|number,
+            voice:InputFile|string,
+            caption?:string,
+            parse_mode?:string,
+            caption_entities?:MessageEntity[],
+            duration?:number,
+            disable_notification?:boolean,
+            protect_content?:boolean,
+            reply_to_message_id?:number,
+            allow_sending_without_reply?:boolean,
+            reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
+        }
+    ): Promise<Message> {
+        const r = await this.post('sendVoice',demand);
+        return r.result as Message;
+    }
+
+    async sendVideoNote(
+        demand: {
+            chat_id:string|number,
+            video_note:InputFile|string,
+            duration?: number,
+            length?:number,
+            thumb?:InputFile|string,
+            disable_notification?:boolean,
+            protect_content?:boolean,
+            reply_to_message_id?:number,
+            allow_sending_without_reply?:boolean,
+            reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
+        }
+    ): Promise<Message> {
+        const r= await this.post('sendVideoNote',demand);
+        return r.result as Message;
+    }
+
+    async sendMediaGroup(
+        demand: {
+            chat_id:string|number,
+            media: InputMedia[],
+            disable_notification?:boolean,
+            protect_content?:boolean,
+            reply_to_message_id?:number,
+            allow_sending_without_reply?:boolean,
+        }
+    ): Promise<Message> {
+        const r = await this.post('sendMediaGroup',demand);
         return r.result as Message;
     }
 
